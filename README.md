@@ -1,8 +1,8 @@
-##About this Project
+## About this Project
 
 This project was written in ReactJS, with the styling done in SCSS mostly. 
 
-###To run the project, navigate in the terminal to the inner directory `hungry_time`, and run `npm start`.
+### To run the project, navigate in the terminal to the inner directory `hungry_time`, and run `npm start`.
 
 There were a couple of things to note in this project -
 

@@ -30,16 +30,11 @@ function SearchBar(props)
 
     const onSearch = () =>
     {
-        debugger;
-
-
         props.clearResults();
 
         let query = new SearchQuery();
         query.setParameter("name", name);
         query.setParameter("zip", zip);
-
-        debugger;
 
         query.setParameter("price", priceChoices[price].value);
         // query.setParameter("distance", distanceChoices[distance - 1].value );
@@ -86,7 +81,6 @@ function SearchBar(props)
 
     const handleDistance = (element) =>
     {
-        debugger;
         setDistance(element.value);
     }
 

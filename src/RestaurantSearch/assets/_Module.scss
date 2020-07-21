@@ -34,25 +34,37 @@
   }
 }
 
-.paginator_container {
+.paginator-container {
   height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .paginator
   {
     height: 2rem;
     width: 10rem;
 
+
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   .pagination-table
   {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0.5rem 0.1rem var(--lightGray);
 
     td
     {
       width: 2rem;
-      border: 1px solid var(--lightGray);
+      padding: 0.25rem 0.5rem;
+
 
 
       &.current
@@ -62,8 +74,8 @@
     }
     td:hover
     {
+      cursor: pointer;
       filter: brightness(1.2);
-      box-shadow: 0 0 0.5rem 0.1rem var(--lightGray);
       transition-duration: 150ms;
     }
   }
@@ -73,6 +85,7 @@
 .results-container
 {
   border: 1px solid var(--almostWhite);
+  margin-right: 0.5rem;
 }
 
 .map-view
@@ -92,15 +105,16 @@
 
   margin: 0.5rem 0;
   width: 100%;
-  height: 15%;
+  height: 22%;
   background-color: #FAFAFA;
 
   &.active {
-    box-shadow: 0 0 1rem 1rem var(--almostBlack);
+    box-shadow: 0 0 0.5rem 0.1rem var(--lightGray);
   }
 
   &:hover {
-    box-shadow: 0 0 1rem 1rem var(--almostWhite);
+    box-shadow: 0 0 0.5rem 0.1rem var(--almostWhite);
+    border: 1px solid var(--gray);
 
   }
 
@@ -122,10 +136,14 @@
   {
     width: 2rem;
     height: 2rem;
+    margin-top: 1rem;
+
   }
 
 
   .description {
+    font-family: Verdana, SansSerif;
+    font-weight: bold;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -133,12 +151,26 @@
     color: var(--lightGray);
     height: 100%;
     width: 15rem;
-    font-size: 0.8rem
+    font-size: 0.6rem;
+    padding: 0.75rem 0.25rem 0.25rem 0.25rem;
+  }
+
+  .description .name
+  {
+    text-align: left;
+    padding: 0.25rem;
+  }
+
+  .description .type {
+    color: darkred;
+    padding: 0.25rem;
   }
 
   .location {
     display: flex;
     flex-direction: row;
+    text-align: left;
+    padding: 0.25rem;
 
     .pin_icon {
       display: flex;
@@ -160,12 +192,53 @@
   }
 
   .rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
-    width: 10rem;
+    width: 5rem;
+    font-size: small;
+    color: var(--accentColor)
   }
   .actions {
+    font-size: small;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .phone {
+      background-color: var(--accentColor);
+      outline: none;
+      border: 1px solid var(--lightGray);
+      border-radius: 2px;
+      padding: 0.35rem;
+      width: 10rem;
+
+      &:hover
+      {
+        filter: brightness(1.1);
+      }
+    }
+
     height: 100%;
     width: 15rem;
+  }
+
+  .alt-buttons
+  {
+    display: flex;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: var(--lightGray);
+    }
+
+    & > *
+    {
+      padding: 0.25rem;
+    }
   }
 }
 
@@ -331,3 +404,10 @@ div.bottom-row
   margin-left: 5rem;
 }
 
+
+div.bottom-row div.num-results
+{
+  text-align: center;
+  padding: 0.25rem;
+  border: none;
+}

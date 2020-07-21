@@ -6,7 +6,7 @@ function MapView(props) {
     let isReady = false;
     const [currentLocation, setCurrentLocation] = useState(null);
 
-    let zoom = 10;
+    window.zoom = 10;
     let map = null;
 
     let marker = null;
@@ -17,10 +17,10 @@ function MapView(props) {
             if (window.google !== null && isReady === false)
             {
                 console.log("Google Maps Is Ready.")
-                isReady = true;
+                window.isReady = true;
             }
             x++;
-            if (x > 20 || isReady === true)
+            if (x > 20 || window.isReady === true)
             {
                 window.clearInterval(intervalID);
             }
@@ -28,55 +28,54 @@ function MapView(props) {
     }, [])
 
     const createMap = () => {
-        if (currentLocation != null)
-        {
-            if (map == null)
-            {
-                map = new window.google.maps.Map(document.getElementById('map'),
-                    {zoom: zoom, center: currentLocation});
+        if (window.isReady) {
+            if (currentLocation != null) {
+                if (map == null) {
+                    map = new window.google.maps.Map(document.getElementById('map'),
+                        {zoom: window.zoom, center: currentLocation});
+                } else {
+                    window.zoom = 14;
+                    map.setCenter(currentLocation);
+                    map.setZoom(window.zoom);
+                }
+
+            } else if (props.location != null) {
+                if (map == null) {
+                    map = new window.google.maps.Map(document.getElementById('map'),
+                        {zoom: window.zoom, center: props.location});
+                } else {
+                    map.setCenter(props.location);
+                    map.setZoom(window.zoom);
+                }
+                if (marker != null) {
+                    marker.setPosition(props.location)
+                }
+            } else {
+                if (map == null) {
+                    if (window.isReady) {
+                        map = new window.google.maps.Map(document.getElementById('map'),
+                            {zoom: window.zoom, center: {lat: 25.7617, lng: -80.1918}});
+
+                    }
+                } else {
+                    map.setCenter(props.location);
+                    map.setZoom(window.zoom);
+                }
+                if (marker != null) {
+                    marker.setPosition(props.location)
+                }
             }
-            else
-            {
-                map.setCenter(currentLocation);
-                map.setZoom(zoom);
-            }
-            if (marker != null)
-            {
+            if (marker == null) {
+                if (window.isReady) {
+
+                    marker = new window.google.maps.Marker({
+                        position: currentLocation || props.location,
+                        map: map,
+                        title: props.currentRestaurant?.query.name
+                    });
+                }
+            } else {
                 marker.setPosition(currentLocation)
-            }
-        }
-        else if (props.location != null)
-        {
-            if (map == null)
-            {
-                map = new window.google.maps.Map(document.getElementById('map'),
-                    {zoom: zoom, center: props.location});
-            }
-            else
-            {
-                map.setCenter(props.location);
-                map.setZoom(zoom);
-            }
-            if (marker != null)
-            {
-                marker.setPosition(props.location)
-            }
-        }
-        else
-        {
-            if (map == null)
-            {
-                map = new window.google.maps.Map(document.getElementById('map'),
-                    {zoom: zoom, center: {lat: 25.7617, lng: -80.1918}});
-            }
-            else
-            {
-                map.setCenter(props.location);
-                map.setZoom(zoom);
-            }
-            if (marker != null)
-            {
-                marker.setPosition(props.location)
             }
         }
     }
@@ -95,7 +94,6 @@ function MapView(props) {
                 let long = props.currentRestaurant.query.lng;
                 setCurrentLocation({lat: lat, lng: long})
             }
-            zoom = 14;
         }
     }, [props.currentRestaurant])
 
@@ -106,17 +104,7 @@ function MapView(props) {
     }, [props.location, currentLocation])
 
     useEffect(() => {
-        if (isReady) {
-            marker = new window.google.maps.Marker({
-                position: currentLocation,
-                map: map,
-                title: props.currentRestaurant?.query.name
-            });
-        }
-    }, [currentLocation])
-
-    useEffect(() => {
-        if (isReady)
+        if (window.isReady)
         {
             if (marker != null)
             {

@@ -25,6 +25,20 @@ function ListEntry(props)
         </div>;
     }
 
+    let formatPhoneNumber = (str) => {
+        //Filter only numbers from the input
+        let cleaned = ('' + str).replace(/\D/g, '');
+
+        //Check if the input is of correct length
+        let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        };
+
+        return null
+    };
+
 
     return (
         <div className={`list-entry ${props.isClicked ? 'active':''}`} onClick={() => props.clickedCallback(props.query)}>
@@ -43,7 +57,7 @@ function ListEntry(props)
                         {samplePinIcon}
                     </div>
                     <div className={"distance"}>
-                        {distance || "0.68mi"}
+                        {distance !== "0.00mi" ? distance : "" || "0.68mi"}
                     </div>
                     <div className={"divider"}> | </div>
                     <div className={"address"}>
@@ -61,10 +75,10 @@ function ListEntry(props)
                 <div className="banner"> Make a Reservation </div>
                 <div className="action-button">
                     <div className="phone-icon"></div>
-                    <div className="phone">{props.query?.query.phone || "123-456-7890"}</div>
+                    <div className="phone">{formatPhoneNumber(props.query?.query.phone) || "123-456-7890"}</div>
                 </div>
                 <div className="alt-buttons">
-                    <a href={props.query?.query.reserve_url}>See Website</a>
+                    <a href={props.query?.query.reserve_url}>See Website</a> <span> | </span>
                     <div className="save-action">
                         <div className='save-icon'></div>
                         <div className='save-message'>Save</div>

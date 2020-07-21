@@ -11,10 +11,10 @@ function NavigationBar() {
                 <img src={hungryTimeIcon}/>
             </div>
             <div className="dashboard-link">
-                <a> My Dashboard</a>
+                <a href> My Dashboard</a>
             </div>
             <div className="search-link">
-                <a href="/"> Search</a>
+                <a href> Search</a>
             </div>
             <div className="alerts-icon">
                 {notificationOnIcon}

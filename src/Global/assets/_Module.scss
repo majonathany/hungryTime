@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  width: 80rem;
+  min-width: 50rem;
+  width: 60vw;
+  max-width: 70rem;
   margin: auto;
 }
 
@@ -45,7 +47,7 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  background-color: var(--almostWhite);
+  background-color: var(--white);
   width: 100%;
   min-height: 5rem;
   margin: auto;
@@ -62,14 +64,36 @@
     }
   }
 
+  a, .name {
+    text-decoration: none;
+    font-weight: bolder;
+    color: var(--lightGray);
+    font-family: Verdana, SansSerif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+  }
+
+  a:hover
+  {
+    filter: brightness(1.2);
+    cursor: pointer;
+  }
+
   .dashboard-link
   {
     width: 15rem;
+
   }
 
   .search-link
   {
     width: 10rem;
+  }
+
+  svg
+  {
+    cursor: pointer;
   }
 
   .alerts-icon
@@ -84,12 +108,76 @@
     height: 2rem;
     margin-right: 2rem;
   }
-
-
 }
 
 .cheap-icon, .expensive-icon
 {
   width: 1rem;
   height: 1rem;
+}
+
+.banner-top
+{
+  display: flex;
+  position: absolute;
+  left:0;
+  background-color: var(--bannerColor);
+  padding: 0.5rem;
+  text-align: center;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+
+  a {
+    color: var(--accentColor);
+
+    &:hover
+    {
+      filter: brightness(1.2);
+    }
+  }
+
+  & > div:first-child
+  {
+    width: 90%;
+    margin-left: 5%;
+  }
+
+  & > div:nth-child(2)
+  {
+    width: 5%;
+  }
+
+  &.hidden
+  {
+    transition: opacity;
+    transition-duration: 250ms;
+    transition-timing-function: ease;
+    opacity: 0;
+  }
+
+
+  .close-icon
+  {
+    position: static;
+    height: 1rem;
+    width: 1rem;
+
+    &:hover
+    {
+      filter: brightness(1.2);
+    }
+
+    svg
+    {
+      position: static;
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+.num-results
+{
+  border: none;
 }

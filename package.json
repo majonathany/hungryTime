@@ -13,11 +13,12 @@
     "uuid": "^8.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "npm run sass-no-watch && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sass": "node-sass -w --linefeed=\"lf\" ./src/index.scss ./src/index.css"
+    "sass": "node-sass -w --linefeed=\"lf\" ./src/index.scss ./src/index.css",
+    "sass-no-watch": "node-sass --linefeed=\"lf\" ./src/index.scss ./src/index.css"
   },
   "eslintConfig": {
     "extends": "react-app"

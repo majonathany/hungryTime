@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
+
 import SearchBar from "./views/SearchBar";
 import ResultsList from "./views/ResultsList";
 import MapView from "./views/MapView";
@@ -28,19 +29,13 @@ export function RestaurantSearch(props)
     }, [listOfRestaurants]);
 
     useEffect(() => {
-        if (location == null) {
+        if (localStorage.getItem("position") === null) {
             if (navigator.geolocation) {
-                var location_timeout = setTimeout(false, 10000);
-
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    clearTimeout(location_timeout);
-
-                    var lat = position.coords.latitude;
-                    var lng = position.coords.longitude;
-
-                    setLocation({lat: lat, lng: lng});
+                    console.log("Position is: " + position);
+                    sessionStorage.setItem("position", position);
+                    setLocation({lat: position.coords.latitude, lng: position.coords.longitude});
                 }, function(error) {
-                    clearTimeout(location_timeout);
                     console.log("Geolocation failed.");
                 });
             } else {
@@ -50,7 +45,12 @@ export function RestaurantSearch(props)
             }
 
         }
-    }, )
+        else
+        {
+            let position = localStorage.getItem("position");
+            setLocation({lat: position.coords.latitude, lng: position.coords.longitude})
+        }
+    }, [])
 
     const handleResponseData = (response) =>
     {

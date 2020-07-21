@@ -15,8 +15,10 @@ function SearchBar(props)
     let [cuisine, setCuisine] = useState("");
     let [dietary, setDietary] = useState("");
 
-    let [price, setPrice] = useState(null);
-    let [distance, setDistance] = useState(null);
+    //Price seems to not work
+    let [price, setPrice] = useState(1);
+
+    let [distance, setDistance] = useState(1);
 
     const handleEnter = (e) =>
     {
@@ -28,11 +30,20 @@ function SearchBar(props)
 
     const onSearch = () =>
     {
+        debugger;
+
+
         props.clearResults();
 
         let query = new SearchQuery();
         query.setParameter("name", name);
         query.setParameter("zip", zip);
+
+        debugger;
+
+        query.setParameter("price", priceChoices[price].value);
+        // query.setParameter("distance", distanceChoices[distance - 1].value );
+
 
         //cuisine and dietary not supported
 
@@ -68,54 +79,54 @@ function SearchBar(props)
         }
     }
 
-    const handleDropdownChange = (target, dropdown) => {
-        const value = target.value;
-        const name = dropdown;
+    const handlePrice = (element) =>
+    {
+        setPrice(element.value);
+    }
 
-        if (name === "query-price-input")
-        {
-            setPrice(value);
-        }
-        else if (name === "query-distance-input")
-        {
-            setDistance(value);
-        }
+    const handleDistance = (element) =>
+    {
+        debugger;
+        setDistance(element.value);
     }
 
 
     return (
         <div className="search-bar">
-            <div className="top-row">
-                <div className="query-name">
+            <table className="top-row">
+                <tbody>
+                <tr>
+                <td className="query-name">
                     <span></span>
                     <input name="query-name-input" onKeyPress={handleEnter} onChange={handleTextChange} value={name} type="text" placeholder={"Restaurant Name"}/>
-                </div>
-                <div className="query-zip">
+                </td>
+                <td className="query-zip">
                     <span></span>
                     <input name="query-zip-input" onKeyPress={handleEnter} onChange={handleTextChange} value={zip} type="text" placeholder={"Zip Code"}/>
-                </div>
-                <div className="query-cuisine">
+                </td>
+                <td className="query-cuisine">
                     <span></span>
                     <input name="query-cuisine-input" onKeyPress={handleEnter} onChange={handleTextChange} value={cuisine}  type="text" placeholder={"Cuisine Type"}/>
-                </div>
-                <div className="query-dietary">
+                </td>
+                <td className="query-dietary">
                     <span></span>
                     <input name="query-dietary-input" onKeyPress={handleEnter} onChange={handleTextChange} value={dietary}  type="text" placeholder={"Dietary"}/>
-                </div>
-                <div className="search-btn-container">
+                </td>
+                <td className="search-btn-container">
                     <button type="button" onClick={onSearch}>
                         <span>
                             {search_icon}
                         </span>
                         Search
                     </button>
-                </div>
-
-            </div>
+                </td>
+                </tr>
+                </tbody>
+            </table>
             <div className="bottom-row">
-                <Dropdown className="query-price" options={priceChoices} placeholder="Price" value={price} name={"query-price-input"} onChange={() => handleDropdownChange("query-price-input")} />
-                <Dropdown className="query-distance" options={distanceChoices} placeholder="Distance" value={distance} name={"query-distance-input"} onChange={() => handleDropdownChange("query-distance-input")}/>
-                <div className="num-results">
+                <Dropdown className="query-price" options={priceChoices} placeholder="Price" value={priceChoices[price - 1]} name={"query-price-input"} onChange={handlePrice} />
+                <Dropdown className="query-distance" options={distanceChoices} placeholder="Distance" value={distanceChoices[distance-1]} name={"query-distance-input"} onChange={handleDistance} />
+                <div className="num-results" style={{display: props.numResults < 0 ? 'none' : "block"}}>
                     {props.numResults < 0 ? "" : `${props.numResults} results found`}
                 </div>
             </div>

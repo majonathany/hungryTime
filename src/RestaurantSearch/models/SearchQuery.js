@@ -1,4 +1,4 @@
-import {US_States} from "../../Global/assets/reference";
+import {distanceChoices, priceChoices, US_States} from "../../Global/assets/reference";
 import {apiRestaurantsUrl} from '../../Global/assets/config';
 
 export default class SearchQuery {
@@ -16,6 +16,14 @@ export default class SearchQuery {
         }
 
         this.setParameter = (key, value) => {
+            if (key === "price")
+            {
+                this.query.price = priceChoices[value];
+            }
+            if (key === "distance")
+            {
+                this.query.distance = distanceChoices[value];
+            }
             this.query[key] = value;
             return this;
         }

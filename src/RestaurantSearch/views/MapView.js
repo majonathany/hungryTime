@@ -7,11 +7,9 @@ function MapView(props) {
     const [currentLocation, setCurrentLocation] = useState(null);
 
     let zoom = 10;
-    const [map, setMap] = useState(null);
+    let map = null;
 
     let marker = null;
-
-    let labelIndex = 0;
 
     useEffect(() => {
         let x = 0;
@@ -34,8 +32,8 @@ function MapView(props) {
         {
             if (map == null)
             {
-                setMap(new window.google.maps.Map(document.getElementById('map'),
-                    {zoom: zoom, center: currentLocation}));
+                map = new window.google.maps.Map(document.getElementById('map'),
+                    {zoom: zoom, center: currentLocation});
             }
             else
             {
@@ -51,8 +49,25 @@ function MapView(props) {
         {
             if (map == null)
             {
-                setMap(new window.google.maps.Map(document.getElementById('map'),
-                    {zoom: zoom, center: props.location}));
+                map = new window.google.maps.Map(document.getElementById('map'),
+                    {zoom: zoom, center: props.location});
+            }
+            else
+            {
+                map.setCenter(props.location);
+                map.setZoom(zoom);
+            }
+            if (marker != null)
+            {
+                marker.setPosition(props.location)
+            }
+        }
+        else
+        {
+            if (map == null)
+            {
+                map = new window.google.maps.Map(document.getElementById('map'),
+                    {zoom: zoom, center: {lat: 25.7617, lng: -80.1918}});
             }
             else
             {

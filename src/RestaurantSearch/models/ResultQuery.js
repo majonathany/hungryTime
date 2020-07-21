@@ -42,6 +42,11 @@ export default class ResultQuery {
 
         this.getDistance = (position) => {
 
+            if (position == null)
+            {
+                return 0;
+            }
+
             let distance = 0;
             let lat1 = position.lat, lon1 = position.lng;
 
